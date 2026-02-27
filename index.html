@@ -3,50 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Merge Slide</title>
+<title>Merge Slide — Combined Pack</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{overflow:auto;touch-action:none;-webkit-user-select:none;user-select:none}
 body{min-height:100vh;min-height:100dvh;background:linear-gradient(170deg,#1A100A 0%,#2D1B0E 35%,#3A2515 65%,#1A100A 100%);display:flex;flex-direction:column;align-items:center;font-family:'Nunito','Segoe UI',sans-serif;padding:8px}
-.tabs{display:flex;gap:4px;margin:8px 0 12px;width:100%;max-width:500px}
-.tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:800;letter-spacing:1px;border-radius:10px 10px 0 0;cursor:pointer;transition:all .2s}
-.tab.active{background:rgba(255,217,61,0.15);color:#FFD93D;border-bottom:3px solid #FFD93D}
-.tab:not(.active){background:rgba(0,0,0,0.3);color:#6B5040;border-bottom:3px solid transparent}
-.panel{display:none;width:100%;max-width:500px;flex-direction:column;align-items:center}
-.panel.active{display:flex}
+.btn{background:linear-gradient(145deg,#6B4F35,#5C4033);border:2px solid #8B7355;border-radius:10px;padding:9px 18px;font-size:13px;font-weight:800;color:#FFD93D;cursor:pointer;letter-spacing:1px;box-shadow:0 3px 0 #3E2A1A,0 4px 8px rgba(0,0,0,0.3);font-family:'Nunito',sans-serif}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #3E2A1A}
+.btn.primary{background:linear-gradient(145deg,#FFD93D,#F5A623);color:#2D1B0E;border-color:#cc8800}
 .board{position:relative;overflow:hidden;background:linear-gradient(145deg,#5C4033,#3E2A1A);border-radius:16px;border:3px solid #6B4F35;box-shadow:inset 0 3px 12px rgba(0,0,0,0.6),0 10px 50px rgba(0,0,0,0.7)}
 .cell{position:absolute;background:rgba(0,0,0,0.15);border-radius:6px;cursor:pointer}
 .cell:hover{background:rgba(255,255,255,0.08)}
 .blk{position:absolute;display:flex;align-items:center;justify-content:center;flex-direction:column;user-select:none;touch-action:none}
 .blk .em{pointer-events:none;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))}
 .blk .szl{font-size:8px;font-weight:800;color:rgba(255,255,255,0.6);pointer-events:none;margin-top:-2px}
-.btn{background:linear-gradient(145deg,#6B4F35,#5C4033);border:2px solid #8B7355;border-radius:10px;padding:9px 18px;font-size:13px;font-weight:800;color:#FFD93D;cursor:pointer;letter-spacing:1px;box-shadow:0 3px 0 #3E2A1A,0 4px 8px rgba(0,0,0,0.3);font-family:'Nunito',sans-serif}
-.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #3E2A1A}
-.btn.primary{background:linear-gradient(145deg,#FFD93D,#F5A623);color:#2D1B0E;border-color:#cc8800}
-.pal-label{font-size:9px;color:#6B5040;font-weight:700;letter-spacing:1px;margin:4px 0 2px}
-.palette{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0;justify-content:center}
-.pal-item{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;border:2px solid transparent;transition:all .15s;font-size:20px}
-.pal-item.selected{border-color:#FFD93D;box-shadow:0 0 12px rgba(255,217,61,0.5)}
-.pal-item .psz{font-size:7px;font-weight:800;color:rgba(255,255,255,0.6);margin-top:-3px}
-.editor-tools{display:flex;gap:6px;margin:8px 0;flex-wrap:wrap;justify-content:center}
-.sz-row{display:flex;gap:6px;align-items:center;margin-bottom:8px}
-.sz-row label{color:#8B7355;font-size:11px;font-weight:700}
-.sz-input{width:50px;padding:6px;border-radius:8px;border:2px solid #6B4F35;background:#2D1B0E;color:#FFD93D;font-size:14px;font-weight:800;text-align:center;font-family:'Nunito',sans-serif}
-.sz-input:focus{outline:none;border-color:#FFD93D}
-.sz-x{color:#6B5040;font-size:14px;font-weight:900}
-.level-list{width:100%;margin-top:10px}
-.level-list-title{font-size:10px;color:#6B5040;font-weight:700;letter-spacing:1.5px;margin-bottom:6px}
-.lv-item{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.25);border-radius:8px;padding:8px 12px;margin-bottom:4px}
-.lv-item .lv-name{color:#C4A882;font-size:13px;font-weight:700}
-.lv-item .lv-info{color:#6B5040;font-size:10px}
-.lv-item .lv-actions{display:flex;gap:4px}
-.lv-btn{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;border:1px solid rgba(255,255,255,0.1);font-family:'Nunito',sans-serif}
-.lv-btn.edit{background:#5C4033;color:#FFD93D}
-.lv-btn.del{background:#4A2020;color:#FF6B6B}
-.lv-btn.mv{background:#3A2515;color:#8B7355;font-size:12px;padding:4px 6px}
-.ghost-blk{position:absolute;pointer-events:none;opacity:0.5;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:50}
 .play-menu{width:100%;display:flex;flex-direction:column;align-items:center}
 .play-title{font-size:32px;font-weight:900;color:#FFD93D;text-shadow:0 3px 15px rgba(255,217,61,0.4);margin:16px 0 4px;letter-spacing:4px}
 .play-sub{font-size:11px;color:#7D6040;margin-bottom:16px;font-weight:700}
@@ -56,7 +28,7 @@ body{min-height:100vh;min-height:100dvh;background:linear-gradient(170deg,#1A100
 .lv-card .lv-num{font-size:22px;font-weight:900;color:#FFD93D}
 .lv-card .lv-check{position:absolute;top:4px;right:6px;font-size:14px}
 .lv-card .lv-sz{font-size:9px;color:#8B7355;font-weight:700}
-
+.lv-card .lv-time{font-size:9px;color:#A8E6CF;font-weight:800;margin-top:2px}
 .play-game{width:100%;display:flex;flex-direction:column;align-items:center}
 .play-game.hidden{display:none}
 .play-hud{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:500px;margin-bottom:8px}
@@ -77,7 +49,6 @@ body{min-height:100vh;min-height:100dvh;background:linear-gradient(170deg,#1A100
 @keyframes po{0%{transform:scale(1);opacity:1;filter:brightness(1)}30%{transform:scale(1.35);filter:brightness(1.8)}100%{transform:scale(0);opacity:0;filter:brightness(3)}}
 @keyframes gl{0%{filter:brightness(1);box-shadow:0 0 0 0 rgba(255,215,0,0.8)}50%{filter:brightness(1.5);box-shadow:0 0 28px 14px rgba(255,215,0,0.5)}100%{filter:brightness(1);box-shadow:0 0 0 0 rgba(255,215,0,0)}}
 @keyframes pt{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
-@keyframes rp{0%{background:rgba(255,50,50,0)}20%{background:rgba(255,50,50,0.55)}50%{background:rgba(255,50,50,0.3)}80%{background:rgba(255,50,50,0.55)}100%{background:rgba(255,50,50,0)}}
 @keyframes wp{0%{transform:scale(0.4) rotate(-8deg);opacity:0}60%{transform:scale(1.06) rotate(1deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
 @keyframes mp{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
 
@@ -87,54 +58,49 @@ body{min-height:100vh;min-height:100dvh;background:linear-gradient(170deg,#1A100
 <div style="width:100%;max-width:500px;display:flex;flex-direction:column;align-items:center">
   <div class="play-menu" id="playMenu">
     <div class="play-title">MERGE SLIDE</div>
-    <div class="play-sub">Select a level to play</div>
+    <div class="play-sub">20 Levels — Combined Pack</div>
     <div class="level-grid" id="levelGrid"></div>
   </div>
   <div class="play-game hidden" id="playGame">
     <div class="play-hud">
-      <button class="btn" id="pgBack">← Menu</button>
+      <button class="btn" id="pgBack">&larr; Menu</button>
       <div class="play-lv-label" id="pgLabel">Level 1</div>
-      <div class="ps" style="min-width:80px"><div class="psl">⏱ TIME</div><div class="psv" id="pgTimer" style="color:#FFD93D">60</div></div>
+      <div class="ps" style="min-width:80px"><div class="psl">&#9201; TIME</div><div class="psv" id="pgTimer" style="color:#FFD93D">0:00</div></div>
     </div>
     <div class="board" id="pgBoard"></div>
-    <button class="btn" id="pgRestart" style="margin-top:10px">🔄 Restart</button>
+    <button class="btn" id="pgRestart" style="margin-top:10px">&#128260; Restart</button>
   </div>
 </div>
-<div class="wo hid" id="winO"><div class="wb"><div class="we">🎉</div><h2 class="wtt">LEVEL COMPLETE!</h2><p class="wst" id="winSt"></p><div class="wbtns"><button class="btn" id="winMenu">Menu</button><button class="btn primary" id="winNext">Next Level →</button></div></div></div>
-<div class="wo hid" id="failO"><div class="wb" style="border-color:#FF6B6B"><div class="we">⏰</div><h2 class="wtt" style="color:#FF6B6B">TIME'S UP!</h2><p class="wst">You ran out of time</p><div class="wbtns"><button class="btn" id="failMenu">Menu</button><button class="btn primary" id="failRetry">🔄 Retry</button></div></div></div>
+<div class="wo hid" id="winO"><div class="wb"><div class="we">&#127881;</div><h2 class="wtt">LEVEL COMPLETE!</h2><p class="wst" id="winSt"></p><div class="wbtns"><button class="btn" id="winMenu">Menu</button><button class="btn primary" id="winNext">Next Level &rarr;</button></div></div></div>
 
 <script>
 (function(){
 const CL=46,GP=3,ST=CL+GP;
-// GW=columns, GH=rows — set per level/editor
 let GW=8,GH=8;
 
 const TI={
-  1:{w:1,h:1,e:"🐹",bg:"#FF6B6B",sh:"#C94444"},
-  2:{w:1,h:1,e:"🐱",bg:"#FF9F43",sh:"#CC7A2E"},
-  3:{w:2,h:1,e:"🦊",bg:"#FECA57",sh:"#CCA03E"},
-  4:{w:2,h:1,e:"🐸",bg:"#48DBFB",sh:"#2EB0CC"},
-  5:{w:2,h:2,e:"🐰",bg:"#A8E6CF",sh:"#6BBF96"},
-  6:{w:2,h:2,e:"🐻",bg:"#C59CFF",sh:"#9B70D9"},
-  7:{w:2,h:2,e:"🐼",bg:"#B8B8D1",sh:"#8E8EA8"},
-  8:{w:2,h:2,e:"🦁",bg:"#A29BFE",sh:"#7E78CC"},
-  9:{w:2,h:2,e:"🐨",bg:"#F8B595",sh:"#CC8E6E"},
-  10:{w:3,h:2,e:"🐯",bg:"#FD79A8",sh:"#CC5F85"},
-  11:{w:3,h:2,e:"🦄",bg:"#55E6C1",sh:"#3BB896"},
-  12:{w:3,h:3,e:"🐲",bg:"#FEA47F",sh:"#CC835F"},
-  13:{w:4,h:4,e:"👑",bg:"#FFD700",sh:"#CCAB00"}
+  1:{w:1,h:1,e:"\u{1F439}",bg:"#FF6B6B",sh:"#C94444"},
+  2:{w:1,h:1,e:"\u{1F431}",bg:"#FF9F43",sh:"#CC7A2E"},
+  3:{w:2,h:1,e:"\u{1F98A}",bg:"#FECA57",sh:"#CCA03E"},
+  4:{w:2,h:1,e:"\u{1F438}",bg:"#48DBFB",sh:"#2EB0CC"},
+  5:{w:2,h:2,e:"\u{1F430}",bg:"#A8E6CF",sh:"#6BBF96"},
+  6:{w:2,h:2,e:"\u{1F43B}",bg:"#C59CFF",sh:"#9B70D9"},
+  7:{w:2,h:2,e:"\u{1F43C}",bg:"#B8B8D1",sh:"#8E8EA8"},
+  8:{w:2,h:2,e:"\u{1F981}",bg:"#A29BFE",sh:"#7E78CC"},
+  9:{w:2,h:2,e:"\u{1F428}",bg:"#F8B595",sh:"#CC8E6E"},
+  10:{w:3,h:2,e:"\u{1F42F}",bg:"#FD79A8",sh:"#CC5F85"},
+  11:{w:3,h:2,e:"\u{1F984}",bg:"#55E6C1",sh:"#3BB896"},
+  12:{w:3,h:3,e:"\u{1F432}",bg:"#FEA47F",sh:"#CC835F"},
+  13:{w:4,h:4,e:"\u{1F451}",bg:"#FFD700",sh:"#CCAB00"}
 };
 const MR={1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:11,11:12,12:13,13:null};
-const PLACEABLE=[1,2,3,4,5,6,7,8,9,10,11,12];
 
 function sizeBoard(bd,w,h){bd.style.width=(w*ST+GP)+'px';bd.style.height=(h*ST+GP)+'px'}
-function showToast(msg,color){const t=document.createElement('div');t.style.cssText=`position:fixed;top:20px;left:50%;transform:translateX(-50%);background:${color||'#FFD93D'};color:#1A100A;padding:8px 20px;border-radius:10px;font-size:13px;font-weight:800;font-family:'Nunito',sans-serif;z-index:2000;pointer-events:none;opacity:1;transition:opacity .4s`;document.body.appendChild(t);t.textContent=msg;setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),400)},1500)}
-function canPlace(t,r,c,bks,ex,gw,gh){const ti=TI[t];if(r<0||c<0||r+ti.h>gh||c+ti.w>gw)return false;for(const b of bks){if(b.id===ex)continue;const a=TI[t],bb=TI[b.tier];if(c<b.col+bb.w&&c+a.w>b.col&&r<b.row+bb.h&&r+a.h>b.row)return false}return true}
 
+const levels=[{"blocks":[{"tier":5,"row":1,"col":1},{"tier":1,"row":0,"col":0},{"tier":4,"row":3,"col":0},{"tier":3,"row":3,"col":2},{"tier":2,"row":0,"col":2},{"tier":1,"row":4,"col":2}],"gw":4,"gh":5,"time":120},{"blocks":[{"tier":1,"row":0,"col":0},{"tier":1,"row":3,"col":3},{"tier":4,"row":0,"col":1},{"tier":3,"row":1,"col":0},{"tier":5,"row":2,"col":1},{"tier":2,"row":3,"col":0}],"gw":4,"gh":4,"time":120},{"blocks":[{"tier":5,"row":3,"col":2},{"tier":3,"row":3,"col":0},{"tier":1,"row":4,"col":1},{"tier":2,"row":2,"col":1},{"tier":4,"row":1,"col":1},{"tier":1,"row":0,"col":3}],"gw":4,"gh":5,"time":120},{"blocks":[{"tier":6,"row":1,"col":1},{"tier":5,"row":3,"col":3},{"tier":1,"row":4,"col":2},{"tier":2,"row":2,"col":0},{"tier":1,"row":0,"col":2},{"tier":3,"row":3,"col":0},{"tier":4,"row":2,"col":3}],"gw":5,"gh":5,"time":120},{"blocks":[{"tier":6,"row":1,"col":1},{"tier":3,"row":1,"col":3},{"tier":1,"row":0,"col":3},{"tier":4,"row":3,"col":1},{"tier":4,"row":0,"col":1},{"tier":1,"row":0,"col":0},{"tier":2,"row":3,"col":3},{"tier":3,"row":4,"col":0},{"tier":2,"row":2,"col":0},{"tier":1,"row":3,"col":0},{"tier":1,"row":2,"col":4}],"gw":5,"gh":5,"time":120},{"blocks":[{"tier":11,"row":1,"col":5},{"tier":10,"row":6,"col":0},{"tier":9,"row":0,"col":0},{"tier":8,"row":2,"col":0},{"tier":6,"row":0,"col":3},{"tier":1,"row":0,"col":7},{"tier":2,"row":7,"col":5},{"tier":2,"row":5,"col":0},{"tier":2,"row":0,"col":5},{"tier":1,"row":0,"col":6},{"tier":3,"row":5,"col":2},{"tier":1,"row":5,"col":1},{"tier":1,"row":4,"col":2},{"tier":1,"row":2,"col":4},{"tier":3,"row":2,"col":2},{"tier":3,"row":4,"col":0},{"tier":1,"row":3,"col":2},{"tier":7,"row":3,"col":3},{"tier":4,"row":7,"col":3},{"tier":12,"row":4,"col":5}],"gw":8,"gh":8,"time":120},{"blocks":[{"tier":11,"row":6,"col":0},{"tier":3,"row":5,"col":6},{"tier":2,"row":0,"col":2},{"tier":10,"row":2,"col":0},{"tier":9,"row":0,"col":0},{"tier":5,"row":4,"col":2},{"tier":8,"row":0,"col":3},{"tier":9,"row":2,"col":3},{"tier":8,"row":2,"col":6},{"tier":6,"row":4,"col":0},{"tier":8,"row":6,"col":3},{"tier":2,"row":2,"col":5},{"tier":7,"row":4,"col":4},{"tier":10,"row":6,"col":6},{"tier":11,"row":0,"col":6},{"tier":4,"row":4,"col":7}],"gw":9,"gh":8,"time":120},{"blocks":[{"tier":1,"row":6,"col":6},{"tier":1,"row":5,"col":6},{"tier":4,"row":7,"col":5},{"tier":3,"row":7,"col":3},{"tier":10,"row":6,"col":0},{"tier":4,"row":5,"col":0},{"tier":2,"row":5,"col":2},{"tier":2,"row":4,"col":3},{"tier":2,"row":3,"col":3},{"tier":2,"row":4,"col":0},{"tier":2,"row":3,"col":0},{"tier":4,"row":2,"col":0},{"tier":5,"row":0,"col":0},{"tier":12,"row":0,"col":2},{"tier":9,"row":0,"col":5},{"tier":4,"row":2,"col":5},{"tier":11,"row":3,"col":4},{"tier":8,"row":3,"col":1},{"tier":7,"row":5,"col":4}],"gw":7,"gh":8,"time":120},{"blocks":[{"tier":6,"row":0,"col":2},{"tier":6,"row":5,"col":5},{"tier":7,"row":3,"col":0},{"tier":7,"row":1,"col":5},{"tier":8,"row":5,"col":0},{"tier":8,"row":2,"col":3},{"tier":5,"row":3,"col":5},{"tier":5,"row":0,"col":0},{"tier":4,"row":2,"col":0},{"tier":4,"row":6,"col":3},{"tier":3,"row":4,"col":2},{"tier":3,"row":0,"col":4},{"tier":1,"row":1,"col":4},{"tier":1,"row":6,"col":2},{"tier":1,"row":0,"col":6},{"tier":1,"row":5,"col":3},{"tier":2,"row":3,"col":2},{"tier":2,"row":5,"col":4}],"gw":7,"gh":7,"time":90},{"blocks":[{"tier":6,"row":0,"col":0},{"tier":6,"row":4,"col":5},{"tier":8,"row":5,"col":0},{"tier":8,"row":0,"col":4},{"tier":7,"row":0,"col":2},{"tier":7,"row":2,"col":5},{"tier":5,"row":5,"col":3},{"tier":5,"row":3,"col":0},{"tier":4,"row":2,"col":1},{"tier":4,"row":6,"col":5},{"tier":3,"row":4,"col":2},{"tier":3,"row":2,"col":3},{"tier":1,"row":5,"col":2},{"tier":1,"row":0,"col":6},{"tier":1,"row":2,"col":0},{"tier":1,"row":3,"col":3},{"tier":2,"row":4,"col":4},{"tier":2,"row":6,"col":2}],"gw":7,"gh":7,"time":90},{"blocks":[{"tier":9,"row":1,"col":0},{"tier":9,"row":4,"col":6},{"tier":8,"row":6,"col":0},{"tier":8,"row":0,"col":4},{"tier":7,"row":3,"col":0},{"tier":6,"row":6,"col":4},{"tier":5,"row":4,"col":2},{"tier":5,"row":0,"col":6},{"tier":4,"row":2,"col":6},{"tier":4,"row":7,"col":2},{"tier":3,"row":3,"col":4},{"tier":3,"row":6,"col":2},{"tier":2,"row":1,"col":2},{"tier":1,"row":0,"col":2},{"tier":1,"row":7,"col":6},{"tier":3,"row":0,"col":0},{"tier":6,"row":2,"col":2},{"tier":7,"row":4,"col":4}],"gw":8,"gh":8,"time":90},{"blocks":[{"tier":9,"row":0,"col":0},{"tier":9,"row":5,"col":4},{"tier":8,"row":2,"col":5},{"tier":8,"row":6,"col":0},{"tier":7,"row":0,"col":4},{"tier":7,"row":3,"col":0},{"tier":6,"row":1,"col":2},{"tier":3,"row":5,"col":1},{"tier":2,"row":7,"col":4},{"tier":1,"row":5,"col":6},{"tier":1,"row":7,"col":6},{"tier":4,"row":4,"col":4},{"tier":5,"row":3,"col":2},{"tier":7,"row":6,"col":2}],"gw":7,"gh":8,"time":90},{"blocks":[{"tier":8,"row":0,"col":0},{"tier":5,"row":3,"col":3},{"tier":5,"row":0,"col":2},{"tier":6,"row":0,"col":4},{"tier":6,"row":4,"col":0},{"tier":4,"row":2,"col":4},{"tier":4,"row":3,"col":0},{"tier":3,"row":2,"col":1},{"tier":3,"row":5,"col":4},{"tier":2,"row":3,"col":5},{"tier":1,"row":2,"col":0},{"tier":1,"row":4,"col":5},{"tier":2,"row":5,"col":3},{"tier":2,"row":3,"col":2}],"gw":6,"gh":6,"time":150},{"blocks":[{"tier":7,"row":0,"col":1},{"tier":5,"row":3,"col":3},{"tier":5,"row":2,"col":0},{"tier":4,"row":5,"col":3},{"tier":4,"row":2,"col":2},{"tier":3,"row":4,"col":0},{"tier":3,"row":0,"col":3},{"tier":1,"row":0,"col":0},{"tier":1,"row":5,"col":2},{"tier":1,"row":1,"col":3},{"tier":1,"row":2,"col":4},{"tier":2,"row":1,"col":4},{"tier":2,"row":5,"col":0}],"gw":5,"gh":6,"time":150},{"blocks":[{"tier":5,"row":2,"col":2},{"tier":5,"row":5,"col":4},{"tier":6,"row":4,"col":2},{"tier":6,"row":0,"col":4},{"tier":7,"row":2,"col":5},{"tier":7,"row":4,"col":0},{"tier":9,"row":0,"col":2},{"tier":3,"row":4,"col":4},{"tier":3,"row":1,"col":0},{"tier":4,"row":6,"col":2},{"tier":4,"row":3,"col":0},{"tier":1,"row":6,"col":1},{"tier":1,"row":0,"col":6},{"tier":1,"row":0,"col":0},{"tier":1,"row":6,"col":6},{"tier":2,"row":2,"col":4},{"tier":2,"row":0,"col":1}],"gw":7,"gh":7,"time":150},{"blocks":[{"tier":5,"row":4,"col":0},{"tier":5,"row":0,"col":4},{"tier":6,"row":4,"col":4},{"tier":6,"row":0,"col":0},{"tier":7,"row":0,"col":2},{"tier":7,"row":4,"col":2},{"tier":8,"row":2,"col":0},{"tier":8,"row":2,"col":4},{"tier":3,"row":6,"col":2},{"tier":3,"row":6,"col":5},{"tier":4,"row":3,"col":2},{"tier":4,"row":6,"col":0},{"tier":1,"row":5,"col":6},{"tier":1,"row":2,"col":3},{"tier":1,"row":1,"col":6},{"tier":1,"row":6,"col":4},{"tier":2,"row":0,"col":6},{"tier":2,"row":2,"col":2}],"gw":7,"gh":7,"time":150},{"blocks":[{"tier":5,"row":3,"col":3},{"tier":5,"row":0,"col":0},{"tier":6,"row":5,"col":1},{"tier":6,"row":1,"col":5},{"tier":7,"row":2,"col":1},{"tier":7,"row":3,"col":5},{"tier":9,"row":5,"col":4},{"tier":3,"row":2,"col":3},{"tier":3,"row":0,"col":5},{"tier":4,"row":0,"col":3},{"tier":4,"row":4,"col":1},{"tier":1,"row":1,"col":2},{"tier":1,"row":5,"col":6},{"tier":1,"row":6,"col":0},{"tier":1,"row":3,"col":0},{"tier":2,"row":1,"col":4},{"tier":2,"row":5,"col":0}],"gw":7,"gh":7,"time":150},{"blocks":[{"tier":5,"row":4,"col":3},{"tier":5,"row":1,"col":0},{"tier":6,"row":2,"col":3},{"tier":6,"row":5,"col":1},{"tier":7,"row":0,"col":5},{"tier":7,"row":3,"col":0},{"tier":9,"row":0,"col":2},{"tier":3,"row":0,"col":0},{"tier":3,"row":5,"col":5},{"tier":4,"row":2,"col":5},{"tier":4,"row":6,"col":5},{"tier":1,"row":6,"col":0},{"tier":1,"row":4,"col":6},{"tier":1,"row":0,"col":4},{"tier":1,"row":6,"col":3},{"tier":2,"row":2,"col":2},{"tier":2,"row":6,"col":4}],"gw":7,"gh":7,"time":150},{"blocks":[{"tier":5,"row":4,"col":4},{"tier":5,"row":0,"col":1},{"tier":6,"row":2,"col":1},{"tier":6,"row":0,"col":5},{"tier":7,"row":2,"col":4},{"tier":7,"row":5,"col":0},{"tier":8,"row":0,"col":3},{"tier":8,"row":5,"col":6},{"tier":9,"row":2,"col":6},{"tier":9,"row":5,"col":2},{"tier":3,"row":6,"col":4},{"tier":3,"row":4,"col":0},{"tier":4,"row":4,"col":2},{"tier":4,"row":4,"col":6},{"tier":1,"row":0,"col":7},{"tier":1,"row":1,"col":0},{"tier":1,"row":2,"col":3},{"tier":1,"row":3,"col":0},{"tier":2,"row":0,"col":0},{"tier":2,"row":1,"col":7}],"gw":8,"gh":7,"time":150},{"blocks":[{"tier":5,"row":4,"col":6},{"tier":5,"row":0,"col":1},{"tier":6,"row":2,"col":0},{"tier":6,"row":0,"col":5},{"tier":7,"row":4,"col":2},{"tier":7,"row":0,"col":3},{"tier":8,"row":5,"col":0},{"tier":8,"row":2,"col":6},{"tier":3,"row":3,"col":2},{"tier":3,"row":6,"col":4},{"tier":4,"row":4,"col":4},{"tier":4,"row":2,"col":2},{"tier":1,"row":2,"col":5},{"tier":1,"row":6,"col":2},{"tier":1,"row":0,"col":7},{"tier":1,"row":0,"col":0},{"tier":2,"row":6,"col":3},{"tier":2,"row":1,"col":7}],"gw":8,"gh":7,"time":150}];
 
-const levels=[{"blocks": [{"tier": 5, "row": 1, "col": 1}, {"tier": 1, "row": 0, "col": 0}, {"tier": 4, "row": 3, "col": 0}, {"tier": 3, "row": 3, "col": 2}, {"tier": 2, "row": 0, "col": 2}, {"tier": 1, "row": 4, "col": 2}], "gw": 4, "gh": 5, "time": 120}, {"blocks": [{"tier": 1, "row": 0, "col": 0}, {"tier": 1, "row": 3, "col": 3}, {"tier": 4, "row": 0, "col": 1}, {"tier": 3, "row": 1, "col": 0}, {"tier": 5, "row": 2, "col": 1}, {"tier": 2, "row": 3, "col": 0}], "gw": 4, "gh": 4, "time": 120}, {"blocks": [{"tier": 5, "row": 3, "col": 2}, {"tier": 3, "row": 3, "col": 0}, {"tier": 1, "row": 4, "col": 1}, {"tier": 2, "row": 2, "col": 1}, {"tier": 4, "row": 1, "col": 1}, {"tier": 1, "row": 0, "col": 3}], "gw": 4, "gh": 5, "time": 120}, {"blocks": [{"tier": 6, "row": 1, "col": 1}, {"tier": 5, "row": 3, "col": 3}, {"tier": 1, "row": 4, "col": 2}, {"tier": 2, "row": 2, "col": 0}, {"tier": 1, "row": 0, "col": 2}, {"tier": 3, "row": 3, "col": 0}, {"tier": 4, "row": 2, "col": 3}], "gw": 5, "gh": 5, "time": 120}, {"blocks": [{"tier": 6, "row": 1, "col": 1}, {"tier": 3, "row": 1, "col": 3}, {"tier": 1, "row": 0, "col": 3}, {"tier": 4, "row": 3, "col": 1}, {"tier": 4, "row": 0, "col": 1}, {"tier": 1, "row": 0, "col": 0}, {"tier": 2, "row": 3, "col": 3}, {"tier": 3, "row": 4, "col": 0}, {"tier": 2, "row": 2, "col": 0}, {"tier": 1, "row": 3, "col": 0}, {"tier": 1, "row": 2, "col": 4}], "gw": 5, "gh": 5, "time": 120}, {"blocks": [{"tier": 11, "row": 1, "col": 5}, {"tier": 10, "row": 6, "col": 0}, {"tier": 9, "row": 0, "col": 0}, {"tier": 8, "row": 2, "col": 0}, {"tier": 6, "row": 0, "col": 3}, {"tier": 1, "row": 0, "col": 7}, {"tier": 2, "row": 7, "col": 5}, {"tier": 2, "row": 5, "col": 0}, {"tier": 2, "row": 0, "col": 5}, {"tier": 1, "row": 0, "col": 6}, {"tier": 3, "row": 5, "col": 2}, {"tier": 1, "row": 5, "col": 1}, {"tier": 1, "row": 4, "col": 2}, {"tier": 1, "row": 2, "col": 4}, {"tier": 3, "row": 2, "col": 2}, {"tier": 3, "row": 4, "col": 0}, {"tier": 1, "row": 3, "col": 2}, {"tier": 7, "row": 3, "col": 3}, {"tier": 4, "row": 7, "col": 3}, {"tier": 12, "row": 4, "col": 5}], "gw": 8, "gh": 8, "time": 120}, {"blocks": [{"tier": 11, "row": 6, "col": 0}, {"tier": 3, "row": 5, "col": 6}, {"tier": 2, "row": 0, "col": 2}, {"tier": 10, "row": 2, "col": 0}, {"tier": 9, "row": 0, "col": 0}, {"tier": 5, "row": 4, "col": 2}, {"tier": 8, "row": 0, "col": 3}, {"tier": 9, "row": 2, "col": 3}, {"tier": 8, "row": 2, "col": 6}, {"tier": 6, "row": 4, "col": 0}, {"tier": 8, "row": 6, "col": 3}, {"tier": 2, "row": 2, "col": 5}, {"tier": 7, "row": 4, "col": 4}, {"tier": 10, "row": 6, "col": 6}, {"tier": 11, "row": 0, "col": 6}, {"tier": 4, "row": 4, "col": 7}], "gw": 9, "gh": 8, "time": 120}, {"blocks": [{"tier": 1, "row": 6, "col": 6}, {"tier": 1, "row": 5, "col": 6}, {"tier": 4, "row": 7, "col": 5}, {"tier": 3, "row": 7, "col": 3}, {"tier": 10, "row": 6, "col": 0}, {"tier": 4, "row": 5, "col": 0}, {"tier": 2, "row": 5, "col": 2}, {"tier": 2, "row": 4, "col": 3}, {"tier": 2, "row": 3, "col": 3}, {"tier": 2, "row": 4, "col": 0}, {"tier": 2, "row": 3, "col": 0}, {"tier": 4, "row": 2, "col": 0}, {"tier": 5, "row": 0, "col": 0}, {"tier": 12, "row": 0, "col": 2}, {"tier": 9, "row": 0, "col": 5}, {"tier": 4, "row": 2, "col": 5}, {"tier": 11, "row": 3, "col": 4}, {"tier": 8, "row": 3, "col": 1}, {"tier": 7, "row": 5, "col": 4}], "gw": 7, "gh": 8, "time": 120}];
-let progress=JSON.parse(localStorage.getItem('ms_progress')||'{"unlocked":1}');
-function saveProgress(){localStorage.setItem('ms_progress',JSON.stringify(progress))}
+let progress=JSON.parse(localStorage.getItem('ms_combined_progress')||'{"unlocked":1}');
+function saveProgress(){localStorage.setItem('ms_combined_progress',JSON.stringify(progress))}
 
 // ═══════════════════════════════════════
 //  PLAY MODE
@@ -144,20 +110,22 @@ let pgDId=null,pgDBlk=null,pgSnp=null,pgItd=null,pgSPos=null;
 let pgMAn=false,pgCPr=null;
 let pgMM=false,pgMTgt=null,pgEDir=null,pgPSnap=null;
 let pgLR=0,pgLC=0;
-let pgTimeLeft=60,pgTimerId=null,pgDone=false;
+let pgTimeElapsed=0,pgTimerId=null,pgDone=false;
 const pgBd=document.getElementById('pgBoard');
 
 function renderPlayMenu(){
   const grid=document.getElementById('levelGrid');
-  
   if(!levels.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#6B5040;font-size:12px;padding:20px">No levels available.</div>';return}
   grid.innerHTML='';
   levels.forEach((lv,i)=>{
     const num=i+1,comp=num<progress.unlocked;
-    const w=lv.gw||lv.gridSize||8,h=lv.gh||lv.gridSize||8,tm=lv.time||60;
-    
+    const w=lv.gw||8,h=lv.gh||8;
+    const bestT=(progress.times||{})[i];
     const d=document.createElement('div');d.className='lv-card';
-    d.innerHTML=`<div class="lv-num">${num}</div><div class="lv-sz">${w}×${h} · ${tm}s</div>`+(comp?'<div class="lv-check">✅</div>':'');
+    let html=`<div class="lv-num">${num}</div><div class="lv-sz">${w}\u00D7${h}</div>`;
+    if(comp)html+='<div class="lv-check">\u2705</div>';
+    if(bestT!=null){const bm=Math.floor(bestT/60),bs=bestT%60;html+=`<div class="lv-time">${bm}:${bs<10?'0':''}${bs}</div>`}
+    d.innerHTML=html;
     d.addEventListener('click',()=>startLevel(i));grid.appendChild(d);
   });
   document.getElementById('playMenu').style.display='flex';
@@ -170,9 +138,9 @@ function startLevel(idx){
   pgDId=null;pgDBlk=null;pgSnp=null;pgItd=null;pgSPos=null;
   pgCPr=null;pgMM=false;pgMTgt=null;pgEDir=null;pgPSnap=null;
   const lv=levels[idx];
-  pgW=lv.gw||lv.gridSize||8;pgH=lv.gh||lv.gridSize||8;
+  pgW=lv.gw||8;pgH=lv.gh||8;
   GW=pgW;GH=pgH;
-  pgTimeLeft=lv.time||60;
+  pgTimeElapsed=0;
   sizeBoard(pgBd,pgW,pgH);
   pgBks=lv.blocks.map(b=>({id:pgUid++,tier:b.tier,row:b.row,col:b.col}));
   document.getElementById('playMenu').style.display='none';
@@ -181,26 +149,20 @@ function startLevel(idx){
   pgRender();pgUpdateTimer();
   pgTimerId=setInterval(()=>{
     if(pgDone)return;
-    pgTimeLeft--;pgUpdateTimer();
-    if(pgTimeLeft<=0){clearInterval(pgTimerId);pgTimerId=null;pgDone=true;pgFail()}
+    pgTimeElapsed++;pgUpdateTimer();
   },1000);
 }
 function pgUpdateTimer(){
   const el=document.getElementById('pgTimer');
-  el.textContent=pgTimeLeft;
-  el.style.color=pgTimeLeft<=10?'#FF6B6B':pgTimeLeft<=30?'#FECA57':'#FFD93D';
-}
-function pgFail(){
-  pgDone=true;
-  document.getElementById('failO').classList.remove('hid');
+  const m=Math.floor(pgTimeElapsed/60),s=pgTimeElapsed%60;
+  el.textContent=m+':'+(s<10?'0':'')+s;
+  el.style.color='#FFD93D';
 }
 
 document.getElementById('pgBack').addEventListener('click',()=>{if(pgTimerId){clearInterval(pgTimerId);pgTimerId=null}renderPlayMenu()});
 document.getElementById('pgRestart').addEventListener('click',()=>{if(pgLvIdx>=0)startLevel(pgLvIdx)});
 document.getElementById('winMenu').addEventListener('click',()=>{document.getElementById('winO').classList.add('hid');renderPlayMenu()});
 document.getElementById('winNext').addEventListener('click',()=>{document.getElementById('winO').classList.add('hid');if(pgLvIdx+1<levels.length)startLevel(pgLvIdx+1);else renderPlayMenu()});
-document.getElementById('failMenu').addEventListener('click',()=>{document.getElementById('failO').classList.add('hid');renderPlayMenu()});
-document.getElementById('failRetry').addEventListener('click',()=>{document.getElementById('failO').classList.add('hid');if(pgLvIdx>=0)startLevel(pgLvIdx)});
 
 // ─── Game Engine ───
 function pgCp(t,r,c,ex){const ti=TI[t];if(r<0||c<0||r+ti.h>GH||c+ti.w>GW)return false;for(const b of pgBks){if(b.id===ex)continue;const bb=TI[b.tier];if(c<b.col+bb.w&&c+ti.w>b.col&&r<b.row+bb.h&&r+ti.h>b.row)return false}return true}
@@ -244,22 +206,21 @@ function pgFM(blk,tg){
 function pgRender(){
   pgBd.innerHTML='';
   for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){const d=document.createElement('div');d.className='cell';d.style.cssText=`left:${GP+c*ST}px;top:${GP+r*ST}px;width:${CL}px;height:${CL}px;cursor:default`;pgBd.appendChild(d)}
-  for(const b of pgBks)pgMkBlk(b);pgUS();
+  for(const b of pgBks)pgMkBlk(b);
 }
 
 function pgMkBlk(b){
   const t=TI[b.tier],el=document.createElement('div');el.className='blk game';el.dataset.bid=b.id;
   const w=t.w*CL+(t.w-1)*GP,h=t.h*CL+(t.h-1)*GP;
   el.style.cssText=`left:${GP+b.col*ST}px;top:${GP+b.row*ST}px;width:${w}px;height:${h}px;background:linear-gradient(140deg,${t.bg},${t.sh});border-radius:${Math.min(w,h)>55?14:9}px;font-size:${Math.min(w,h)*0.48}px;z-index:10;box-shadow:0 3px 0 ${t.sh},0 4px 10px rgba(0,0,0,0.25),inset 0 2px 0 rgba(255,255,255,0.25)`;
-  el.innerHTML=`<span class="em">${t.e}</span>`+((t.w>=2||t.h>=2)?`<span class="szl">${t.w}×${t.h}</span>`:'');
+  el.innerHTML=`<span class="em">${t.e}</span>`+((t.w>=2||t.h>=2)?`<span class="szl">${t.w}\u00D7${t.h}</span>`:'');
   el.addEventListener('mousedown',e=>pgOD(b,e));el.addEventListener('touchstart',e=>pgOD(b,e),{passive:false});
   pgBd.appendChild(el);
 }
 
 function pgGE(id){return pgBd.querySelector(`[data-bid="${id}"]`)}
-function pgUS(){}
 
-function pgAP(r1,c1,r2,c2){const cx=((c1+c2)/2+.5)*ST+GP,cy=((r1+r2)/2+.5)*ST+GP;["✨","⭐","💫","🌟","💥","✨","⭐","💫","🌟","💥","✨","⭐"].forEach((_,i)=>{const p=document.createElement('div');p.style.cssText=`position:absolute;left:${cx}px;top:${cy}px;font-size:16px;pointer-events:none;z-index:200;animation:pt .65s ease-out forwards`;p.style.setProperty('--dx',(Math.random()-.5)*120+'px');p.style.setProperty('--dy',(Math.random()-.5)*120+'px');p.textContent=["✨","⭐","💫","🌟","💥"][i%5];pgBd.appendChild(p);setTimeout(()=>p.remove(),700)})}
+function pgAP(r1,c1,r2,c2){const cx=((c1+c2)/2+.5)*ST+GP,cy=((r1+r2)/2+.5)*ST+GP;["\u2728","\u2B50","\uD83D\uDCAB","\uD83C\uDF1F","\uD83D\uDCA5","\u2728","\u2B50","\uD83D\uDCAB","\uD83C\uDF1F","\uD83D\uDCA5","\u2728","\u2B50"].forEach((_,i)=>{const p=document.createElement('div');p.style.cssText=`position:absolute;left:${cx}px;top:${cy}px;font-size:16px;pointer-events:none;z-index:200;animation:pt .65s ease-out forwards`;p.style.setProperty('--dx',(Math.random()-.5)*120+'px');p.style.setProperty('--dy',(Math.random()-.5)*120+'px');p.textContent=["\u2728","\u2B50","\uD83D\uDCAB","\uD83C\uDF1F","\uD83D\uDCA5"][i%5];pgBd.appendChild(p);setTimeout(()=>p.remove(),700)})}
 
 function pgSPv(id){
   if(pgCPr===id)return;
@@ -341,12 +302,12 @@ function pgOU(){
     }else{
       pgUB(ob.id,sr,sc);if(moved)pgMv++;
     }
-    pgSPv(null);pgCD();pgUS();return;
+    pgSPv(null);pgCD();return;
   }
   if(!pgSnp){pgCD();return}
   const sr=pgSnp.row,sc=pgSnp.col,moved=sr!==ob.row||sc!==ob.col;
   if(moved){pgUB(ob.id,sr,sc);pgMv++}
-  pgSPv(null);pgCD();pgUS();
+  pgSPv(null);pgCD();
 }
 
 function pgUB(id,r,c){const b=pgBks.find(x=>x.id===id);if(b){b.row=r;b.col=c}const el=pgGE(id);if(el){el.style.left=(GP+c*ST)+'px';el.style.top=(GP+r*ST)+'px'}}
@@ -355,7 +316,13 @@ function pgCD(){if(pgDId!==null){const el=pgGE(pgDId);if(el){el.classList.remove
 function pgCW(){
   if(pgBks.length===1){
     pgDone=true;if(pgTimerId){clearInterval(pgTimerId);pgTimerId=null}
-    document.getElementById('winSt').textContent=`Time remaining: ${pgTimeLeft}s`;
+    const m=Math.floor(pgTimeElapsed/60),s=pgTimeElapsed%60;
+    const timeStr=m+':'+(s<10?'0':'')+s;
+    document.getElementById('winSt').textContent=`Solved in ${timeStr}`;
+    // Save best time
+    const best=progress.times||{};
+    const prev=best[pgLvIdx];
+    if(!prev||pgTimeElapsed<prev){best[pgLvIdx]=pgTimeElapsed;progress.times=best;saveProgress()}
     document.getElementById('winO').classList.remove('hid');
     if(pgLvIdx+1>=progress.unlocked){progress.unlocked=pgLvIdx+2;saveProgress()}
     document.getElementById('winNext').style.display=(pgLvIdx+1<levels.length)?'':'none';
